@@ -1,12 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Service class for handling Firebase Authentication operations.
+///
+/// This class provides methods for user authentication operations such as
+/// sign up, sign in, and sign out. It also includes error handling for
+/// common authentication scenarios.
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Get current user
+  /// Returns the currently authenticated user or null if not authenticated.
   User? get currentUser => _auth.currentUser;
 
-  // Sign up with email and password
+  /// Creates a new user account with the provided email and password.
+  ///
+  /// Throws a formatted error message if the operation fails.
+  ///
+  /// Parameters:
+  /// - [email]: The user's email address
+  /// - [password]: The user's password (must be at least 6 characters)
   Future<UserCredential> signUp({
     required String email,
     required String password,
@@ -21,7 +32,13 @@ class AuthService {
     }
   }
 
-  // Sign in with email and password
+  /// Signs in an existing user with email and password.
+  ///
+  /// Throws a formatted error message if the operation fails.
+  ///
+  /// Parameters:
+  /// - [email]: The user's email address
+  /// - [password]: The user's password
   Future<UserCredential> signIn({
     required String email,
     required String password,
@@ -36,12 +53,17 @@ class AuthService {
     }
   }
 
-  // Sign out
+  /// Signs out the currently authenticated user.
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
-  // Handle Firebase Auth exceptions
+  /// Handles Firebase Authentication exceptions and returns user-friendly error messages.
+  ///
+  /// Parameters:
+  /// - [e]: The exception to handle
+  ///
+  /// Returns a user-friendly error message string.
   String _handleAuthException(dynamic e) {
     if (e is FirebaseAuthException) {
       switch (e.code) {
