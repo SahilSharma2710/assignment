@@ -40,5 +40,5 @@ final tasksStreamProvider = StreamProvider<List<Task>>((ref) {
   final user = ref.watch(currentUserProvider);
   if (user == null) return Stream.value([]);
 
-  return ref.watch(taskServiceProvider).getTasks(user.uid);
+  return ref.watch(taskServiceProvider).getTasks();
 });

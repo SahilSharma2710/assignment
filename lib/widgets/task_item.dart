@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miles_assignment/models/priority.dart';
 import 'package:miles_assignment/models/task.dart';
 
@@ -30,19 +31,19 @@ class TaskItem extends StatelessWidget {
     return Card(
       color: _getPriorityColor(),
       elevation: 2,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: ListTile(
-        contentPadding: const EdgeInsets.all(16),
+        contentPadding: EdgeInsets.all(16.r),
         title: Text(
           task.title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 8),
-            Text(task.description),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
+            Text(task.description, style: TextStyle(fontSize: 14.sp)),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 Icon(
@@ -52,12 +53,15 @@ class TaskItem extends StatelessWidget {
                       : task.priority == Priority.medium
                       ? Colors.orange
                       : Colors.green,
-                  size: 20,
+                  size: 20.r,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Text(
                   task.priority.name.toUpperCase(),
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12.sp,
+                  ),
                 ),
               ],
             ),
@@ -66,8 +70,14 @@ class TaskItem extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(icon: const Icon(Icons.edit), onPressed: onEdit),
-            IconButton(icon: const Icon(Icons.delete), onPressed: onDelete),
+            IconButton(
+              icon: Icon(Icons.edit, size: 24.r),
+              onPressed: onEdit,
+            ),
+            IconButton(
+              icon: Icon(Icons.delete, size: 24.r),
+              onPressed: onDelete,
+            ),
           ],
         ),
       ),

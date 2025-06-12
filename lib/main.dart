@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miles_assignment/firebase_options.dart';
 import 'package:miles_assignment/providers/providers.dart';
 import 'package:miles_assignment/screens/home_screen.dart';
@@ -19,13 +20,22 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: authState.when(
+    return ScreenUtilInit(
+      designSize: const Size(375, 812), // Base design size (iPhone X)
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            useMaterial3: true,
+            // Make text scaling responsive
+          ),
+          home: child,
+        );
+      },
+      child: authState.when(
         data: (user) {
           if (user == null) {
             return const SignInScreen();

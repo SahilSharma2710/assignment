@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miles_assignment/providers/providers.dart';
 import 'package:miles_assignment/screens/signup_screen.dart';
 import 'package:miles_assignment/widgets/custom_text_field.dart';
@@ -93,9 +94,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
+
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 16.h,
+                      horizontal: 24.w,
+                    ),
                   ),
                   onPressed: _isLoading ? null : _signIn,
                   child: _isLoading

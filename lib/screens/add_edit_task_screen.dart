@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miles_assignment/models/priority.dart';
 import 'package:miles_assignment/models/task.dart';
 import 'package:miles_assignment/providers/providers.dart';
@@ -79,105 +80,123 @@ class _AddEditTaskScreenState extends ConsumerState<AddEditTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.task == null ? 'Add Task' : 'Edit Task'),
+        title: Text(
+          widget.task == null ? 'Add Task' : 'Edit Task',
+          style: TextStyle(fontSize: 20.sp),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomTextField(
-                controller: _titleController,
-                hintText: 'Task Title',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              CustomTextField(
-                controller: _descriptionController,
-                hintText: 'Task Description',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'Priority',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: SegmentedButton<Priority>(
-                      segments: Priority.values
-                          .map(
-                            (priority) => ButtonSegment<Priority>(
-                              value: priority,
-                              label: Text(
-                                priority.name.toUpperCase(),
-                                style: TextStyle(
-                                  color: _selectedPriority == priority
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextField(
+                  controller: _titleController,
+                  hintText: 'Task Title',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a title';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16.h),
+                CustomTextField(
+                  controller: _descriptionController,
+                  hintText: 'Task Description',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a description';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 24.h),
+                Text(
+                  'Priority',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return constraints.maxWidth > 600
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: _buildPriorityButtons(),
                           )
-                          .toList(),
-                      selected: {_selectedPriority},
-                      onSelectionChanged: (Set<Priority> newSelection) {
-                        setState(() {
-                          _selectedPriority = newSelection.first;
-                        });
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                          (Set<WidgetState> states) {
-                            if (states.contains(WidgetState.selected)) {
-                              return Colors.green.shade400;
-                            }
-                            return Colors.transparent;
-                          },
-                        ),
+                        : Column(children: _buildPriorityButtons());
+                  },
+                ),
+                SizedBox(height: 32.h),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48.h,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                  ),
-                  onPressed: _isLoading ? null : _saveTask,
-                  child: _isLoading
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          widget.task == null ? 'Add Task' : 'Update Task',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                    onPressed: _isLoading ? null : _saveTask,
+                    child: _isLoading
+                        ? SizedBox(
+                            height: 24.r,
+                            width: 24.r,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            widget.task == null ? 'Add Task' : 'Update Task',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildPriorityButtons() {
+    return Priority.values.map((priority) {
+      final isSelected = _selectedPriority == priority;
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: isSelected ? Colors.black : Colors.grey[200],
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+          ),
+          onPressed: () {
+            setState(() => _selectedPriority = priority);
+          },
+          child: Text(
+            priority.name.toUpperCase(),
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      );
+    }).toList();
   }
 }

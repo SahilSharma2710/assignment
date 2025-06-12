@@ -16,19 +16,14 @@ class TaskService {
   ///
   /// Parameters:
   /// - [userId]: The ID of the user whose tasks to fetch
-  Stream<List<Task>> getTasks(String userId) {
-    return _firestore
-        .collection('tasks')
-        .where('userId', isEqualTo: userId)
-        .orderBy('createdOn', descending: true)
-        .snapshots()
-        .map((snapshot) {
-          return snapshot.docs.map((doc) {
-            final data = doc.data();
-            data['id'] = doc.id;
-            return Task.fromMap(data);
-          }).toList();
-        });
+  Stream<List<Task>> getTasks() {
+    return _firestore.collection('tasks').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        data['id'] = doc.id;
+        return Task.fromMap(data);
+      }).toList();
+    });
   }
 
   /// Adds a new task to Firestore.
