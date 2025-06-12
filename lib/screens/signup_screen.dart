@@ -112,10 +112,20 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
                   onPressed: _isLoading ? null : _signUp,
                   child: _isLoading
                       ? const CircularProgressIndicator()
-                      : const Text('Sign Up'),
+                      : const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:miles_assignment/providers/providers.dart';
+import 'package:miles_assignment/screens/add_edit_task_screen.dart';
 import 'package:miles_assignment/widgets/task_item.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -41,7 +42,12 @@ class HomeScreen extends ConsumerWidget {
               return TaskItem(
                 task: task,
                 onEdit: () {
-                  // We'll implement this later
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddEditTaskScreen(task: task),
+                    ),
+                  );
                 },
                 onDelete: () async {
                   final shouldDelete = await showDialog<bool>(
@@ -79,10 +85,14 @@ class HomeScreen extends ConsumerWidget {
         error: (error, stack) => Center(child: Text('Error: $error')),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
         onPressed: () {
-          // We'll implement this later
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddEditTaskScreen()),
+          );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
