@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:miles_assignment/core/enums/priority.dart';
+import 'package:miles_assignment/models/priority.dart';
 
 class Task {
   final String id;

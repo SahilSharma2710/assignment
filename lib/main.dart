@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:miles_assignment/features/auth/providers/auth_provider.dart';
-import 'package:miles_assignment/features/auth/screens/signin_screen.dart';
 import 'package:miles_assignment/firebase_options.dart';
+import 'package:miles_assignment/providers/providers.dart';
+import 'package:miles_assignment/screens/home_screen.dart';
+import 'package:miles_assignment/screens/signin_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +30,7 @@ class MainApp extends ConsumerWidget {
           if (user == null) {
             return const SignInScreen();
           }
-          // We'll add the HomeScreen later
-          return const Scaffold(
-            body: Center(child: Text('Home Screen - Coming Soon')),
-          );
+          return const HomeScreen();
         },
         loading: () =>
             const Scaffold(body: Center(child: CircularProgressIndicator())),
