@@ -84,6 +84,12 @@ class _AddEditTaskScreenState extends ConsumerState<AddEditTaskScreen> {
           widget.task == null ? 'Add Task' : 'Edit Task',
           style: TextStyle(fontSize: 20.sp),
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 24.r),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

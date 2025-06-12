@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miles_assignment/providers/providers.dart';
 import 'package:miles_assignment/screens/add_edit_task_screen.dart';
 import 'package:miles_assignment/widgets/task_item.dart';
@@ -13,10 +14,10 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Tasks'),
+        title: Text('My Tasks', style: TextStyle(fontSize: 20.sp)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: Icon(Icons.logout, size: 24.r),
             onPressed: () {
               ref.read(authServiceProvider).signOut();
             },
@@ -92,7 +93,7 @@ class HomeScreen extends ConsumerWidget {
             MaterialPageRoute(builder: (context) => const AddEditTaskScreen()),
           );
         },
-        child: const Icon(Icons.add, color: Colors.white),
+        child: Icon(Icons.add, color: Colors.white, size: 24.r),
       ),
     );
   }

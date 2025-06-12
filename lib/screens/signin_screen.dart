@@ -60,11 +60,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Welcome Back!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32.h),
               CustomTextField(
                 controller: _emailController,
                 hintText: 'Email',
