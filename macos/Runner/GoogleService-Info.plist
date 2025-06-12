@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCZP9SUEuv7KNDJHkcAGt6g9g0Ibn-6U9U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>718923088406</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.milesAssignment</string>
+	<key>PROJECT_ID</key>
+	<string>miles-assignment</string>
+	<key>STORAGE_BUCKET</key>
+	<string>miles-assignment.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:718923088406:ios:ed7a4b1e8ff15d0d592b37</string>
+</dict>
+</plist>
